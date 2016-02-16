@@ -33,4 +33,4 @@ github.startRequest(function(access_token, err) {
 });
 ```
 
-4. Now you have got access token. Dive into OAuth!
+Now you have got access token. Dive into OAuth!
