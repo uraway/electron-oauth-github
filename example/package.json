@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Masato Urai",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^0.30.7"
+  },
+  "dependencies": {
+    "github-api": "^0.11.2"
+  }
+}
