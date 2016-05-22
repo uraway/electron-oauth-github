@@ -9,9 +9,8 @@
   "author": "Masato Urai",
   "license": "MIT",
   "devDependencies": {
-    "electron-prebuilt": "^0.30.7"
+    "electron-prebuilt": "^1.1.0"
   },
   "dependencies": {
-    "github-api": "^0.11.2"
   }
 }
