@@ -52,6 +52,7 @@ export default class AuthWindow {
       client_secret: this.clientSecret,
       code: code,
     }).end((err, response) => {
+      this.window.destroy();
       if (err) {
         this.callback(err);
       }
