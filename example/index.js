@@ -13,5 +13,5 @@ github.startRequest(function(access_token, err) {
     console.error(err);
   }
 
-  dialog.showErrorBox('Satus', 'access_token: ' + access_token);
+  console.log(access_token);
 });
