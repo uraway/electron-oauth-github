@@ -11,5 +11,7 @@
   "devDependencies": {
     "electron": "^1.6.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "electron-oauth-github": "^1.1.0"
+  }
 }
