@@ -18,7 +18,7 @@ export default class AuthWindow {
   startRequest(callback) {
     this.callback = callback;
     app.on('ready', () => {
-      this.window = new BrowserWindow({ width: 800, height: 600, 'node-integration': false });
+      this.window = new BrowserWindow({ width: 800, height: 600, webPreferences: {nodeIntegration: false}});
       var authURL = 'https://github.com/login/oauth/authorize?client_id=' + this.clientId + '&scope=' + this.scopes;
       this.window.loadURL(authURL);
       this.window.show();
