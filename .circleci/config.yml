@@ -69,9 +69,11 @@ workflows:
   release:
     jobs:
       - npm-publisher/publish-from-package-version:
+          filters:
+            branches:
+              only: master
           context: OSS
           name: publish-npm-package
-          args: --dry-run
           publish-token-variable: NPM_TOKEN
           push-git-tag: true
           ssh-fingerprints: 14:7a:e7:17:8b:dd:ff:5c:8c:11:cf:ed:e0:a5:e6:fc
