@@ -26,6 +26,9 @@ commands:
   run-test:
     steps:
       - run:
+          name: Build
+          command: npm run build
+      - run:
           name: Run test
           command: npm run test
       - store_artifacts:
