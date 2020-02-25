@@ -1,0 +1,61 @@
+orbs:
+  win: circleci/windows@2.4.0
+
+executors:
+  linux:
+    docker:
+      - image: circleci/node:12-browsers
+  mac:
+    macos:
+      xcode: "11.3.1"
+
+commands:
+  install-deps:
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+            - v1-dependencies-{{ arch }}
+      - run:
+          name: Install deps
+          command: npm i
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+  run-test:
+    steps:
+      - run:
+          name: Run test
+          command: npm run test
+      - store_artifacts:
+          path: ./tmp
+
+version: 2.1
+jobs:
+  test-linux:
+    executor: linux
+    steps:
+      - checkout
+      - install-deps
+      - run-test
+  test-mac:
+    executor: mac
+    steps:
+      - checkout
+      - install-deps
+      - run-test
+  test-windows:
+    executor: win/default
+    steps:
+      - checkout
+      - install-deps
+      - run-test
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-linux
+      - test-mac
+      - test-windows
