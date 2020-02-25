@@ -69,9 +69,12 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-linux
-      - test-mac
-      - test-windows
+      - test-linux:
+          context: OSS
+      - test-mac:
+          context: OSS
+      - test-windows:
+          context: OSS
   release:
     jobs:
       - release:
