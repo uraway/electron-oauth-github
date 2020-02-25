@@ -9,7 +9,7 @@
   "author": "Masato Urai",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.8.8"
+    "electron": "^8.0.1"
   },
   "dependencies": {
     "electron-oauth-github": "^1.1.0"
