@@ -62,13 +62,12 @@ workflows:
     jobs:
       - test-linux:
           context: OSS
-      - test-mac:
-          context: OSS
       - test-windows:
           context: OSS
-  release:
-    jobs:
       - npm-publisher/publish-from-package-version:
+          requires:
+            - test-linux
+            - test-windows
           filters:
             branches:
               only: master
@@ -82,4 +81,4 @@ workflows:
             - install-deps
             - run:
                 name: "パッケージをビルドする"
-                command: npm build
+                command: npm run build
