@@ -1,5 +1,6 @@
 orbs:
   win: circleci/windows@2.4.0
+  npm-publisher: uraway/npm-publisher@0.1.0
 
 executors:
   linux:
@@ -14,15 +15,15 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+            - v1-dependencies-{{ arch }}-{{ checksum "yarn.lock" }}
             - v1-dependencies-{{ arch }}
       - run:
           name: Install deps
-          command: npm i
+          command: yarn install
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+          key: v1-dependencies-{{ arch }}-{{ checksum "yarn.lock" }}
   run-test:
     steps:
       - run:
@@ -54,20 +55,7 @@ jobs:
       - checkout
       - install-deps
       - run-test
-  release:
-    executor: linux
-    steps:
-      - checkout
-      - install-deps
-      - run:
-          name: "パッケージをビルドする"
-          command: npm build
-      - run:
-          name: "npmトークンを設定する"
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run:
-          name: "npmパッケージとして公開する"
-          command: npm publish
+
 workflows:
   version: 2
   test:
@@ -80,10 +68,18 @@ workflows:
           context: OSS
   release:
     jobs:
-      - release:
-          context: OSS
+      - npm-publisher/publish-from-package-version:
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
+              only: master
+          context: OSS
+          name: publish-npm-package
+          publish-token-variable: NPM_TOKEN
+          push-git-tag: true
+          ssh-fingerprints: 14:7a:e7:17:8b:dd:ff:5c:8c:11:cf:ed:e0:a5:e6:fc
+          pre-publish-steps:
+            - checkout
+            - install-deps
+            - run:
+                name: "パッケージをビルドする"
+                command: npm build
