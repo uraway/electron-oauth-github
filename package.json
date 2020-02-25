@@ -5,13 +5,13 @@
     "url": "git+https://github.com/uraway/electron-oauth-github.git"
   },
   "author": "Masato Urai @uraway_",
-  "email": "masato.u0107@gmail.com",
+  "email": "masato.uraway@gmail.com",
   "homepage": "https://github.com/uraway/electron-oauth-github",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/uraway/electron-oauth-github/issues"
   },
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Github OAuth Window library.",
   "main": "lib/OauthGithub.js",
   "files": [
@@ -22,29 +22,31 @@
     "test": "test"
   },
   "scripts": {
-    "build": "babel src --out-dir lib --source-maps",
-    "watch": "babel src --out-dir lib --watch --source-maps",
-    "prepublish": "npm run --if-present build"
+    "build": "parcel build src/index.js --out-dir lib --target electron",
+    "watch": "parcel watch src/index.js --out-dir lib --target electron",
+    "prepublish": "npm run --if-present build",
+    "test": "mocha"
   },
   "keywords": [
     "electron",
     "oauth"
   ],
   "devDependencies": {
-    "babel-cli": "^6.3.17",
-    "babel-core": "^6.5.2",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-preset-es2015": "^6.3.13",
-    "electron": "^1.6.1"
+    "babel-core": "^6.26.3",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-preset-env": "^1.7.0",
+    "electron": "^8.0.1",
+    "mocha": "^7.0.1",
+    "parcel-bundler": "^1.12.4",
+    "spectron": "^10.0.1"
   },
   "dependencies": {
-    "assert": "^1.4.0",
-    "oauth": "^0.9.14",
-    "superagent": "^1.7.2"
+    "assert": "^2.0.0",
+    "superagent": "^5.2.2"
   },
   "babel": {
     "presets": [
-      "es2015"
+      "env"
     ],
     "plugins": [
       "add-module-exports"

@@ -1,10 +1,8 @@
-var dialog = require('electron').dialog;
-
-var OauthGithub = require('../lib/OauthGithub');
+var OauthGithub = require('../lib');
 
 var github = new OauthGithub({
-  id: process.env.ID,
-  secret: process.env.SECRET,
+  id: process.env.GH_CLIENT_ID,
+  secret: process.env.GH_CLIENT_SECRET,
   scopes: ['user:email', 'notifications'],
 });
 
