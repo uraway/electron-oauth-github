@@ -51,7 +51,20 @@ jobs:
       - checkout
       - install-deps
       - run-test
-
+  release:
+    executor: linux
+    steps:
+      - checkout
+      - install-deps
+      - run:
+          name: "パッケージをビルドする"
+          command: npm build
+      - run:
+          name: "npmトークンを設定する"
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run:
+          name: "npmパッケージとして公開する"
+          command: npm publish
 workflows:
   version: 2
   test:
@@ -59,3 +72,11 @@ workflows:
       - test-linux
       - test-mac
       - test-windows
+  release:
+    jobs:
+      - release:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
