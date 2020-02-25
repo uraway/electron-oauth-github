@@ -1,4 +1,4 @@
-var OauthGithub = require('../lib/OauthGithub');
+var OauthGithub = require('../lib');
 
 var github = new OauthGithub({
   id: process.env.GH_CLIENT_ID,
