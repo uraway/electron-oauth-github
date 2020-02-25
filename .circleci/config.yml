@@ -15,15 +15,15 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+            - v1-dependencies-{{ arch }}-{{ checksum "yarn.lock" }}
             - v1-dependencies-{{ arch }}
       - run:
           name: Install deps
-          command: npm i
+          command: yarn install
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+          key: v1-dependencies-{{ arch }}-{{ checksum "yarn.lock" }}
   run-test:
     steps:
       - run:
