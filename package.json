@@ -32,12 +32,19 @@
     "oauth"
   ],
   "devDependencies": {
+    "@types/superagent": "^4.1.7",
+    "@typescript-eslint/eslint-plugin": "^2.21.0",
+    "@typescript-eslint/parser": "^2.21.0",
     "babel-core": "^6.26.3",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0",
     "electron": "^8.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "mocha": "^7.0.1",
     "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
     "spectron": "^10.0.1",
     "typescript": "^3.8.2"
   },
