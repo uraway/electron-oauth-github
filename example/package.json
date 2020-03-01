@@ -4,14 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "../node_modules/.bin/electron ."
   },
   "author": "Masato Urai",
-  "license": "MIT",
-  "devDependencies": {
-    "electron": "^8.0.1"
-  },
-  "dependencies": {
-    "electron-oauth-github": "^1.1.0"
-  }
+  "license": "MIT"
 }
