@@ -11,9 +11,9 @@
   "bugs": {
     "url": "https://github.com/uraway/electron-oauth-github/issues"
   },
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Github OAuth Window library.",
-  "main": "lib/OauthGithub.js",
+  "main": "lib/main.js",
   "files": [
     "lib",
     "src"

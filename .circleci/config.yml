@@ -73,6 +73,7 @@ workflows:
           context: OSS
       - npm-publisher/publish-from-package-version:
           requires:
+            - lint
             - test-linux
             - test-windows
           filters:
