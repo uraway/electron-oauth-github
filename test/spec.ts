@@ -1,33 +1,36 @@
 // ref: https://stackoverflow.com/questions/42813924/test-electron-app-with-spectron-and-travis/46014689
-const Application = require('spectron').Application;
+import { Application } from 'spectron';
+import * as electronPath from 'electron';
+
 const assert = require('assert');
-const electronPath = require('electron'); // Require Electron from the binaries included in node_modules.
 const path = require('path');
 const fs = require('fs');
-
-const saveErrorScreenshot = function(e) {
-    const filename = `ErrorScreenshot-${this.test.title}-${new Date().toISOString()}.png`
-        .replace(/\s/g, '_')
-        .replace(/:/g, '');
-    this.app.browserWindow.capturePage().then(imageBuffer => {
-        fs.writeFile(`./tmp/${filename}`, imageBuffer, error => {
-            if (error) throw error;
-
-            console.info(`Screenshot saved: ${process.cwd()}/tmp/${filename}`);
-        });
-    });
-    throw e;
-};
 
 describe('Application launch', function() {
     this.timeout(10000);
 
+    let app: Application;
+
+    const saveErrorScreenshot = function<T>(e): T {
+        const filename = `ErrorScreenshot-${this.test.title}-${new Date().toISOString()}.png`
+            .replace(/\s/g, '_')
+            .replace(/:/g, '');
+        app.browserWindow.capturePage().then(imageBuffer => {
+            fs.writeFile(`./tmp/${filename}`, imageBuffer, error => {
+                if (error) throw error;
+
+                console.info(`Screenshot saved: ${process.cwd()}/tmp/${filename}`);
+            });
+        });
+        throw e;
+    };
+
     beforeEach(function() {
-        this.app = new Application({
+        app = new Application({
             // Your electron path can be any binary
             // i.e for OSX an example path could be '/Applications/MyApp.app/Contents/MacOS/MyApp'
             // But for the sake of the example we fetch it from our node_modules.
-            path: electronPath,
+            path: '' + electronPath,
 
             // Assuming you have the following directory structure
 
@@ -44,17 +47,17 @@ describe('Application launch', function() {
             // and the package.json located 1 level above.
             args: [path.join(__dirname, '..', 'example')],
         });
-        return this.app.start();
+        return app.start();
     });
 
     afterEach(function() {
-        if (this.app && this.app.isRunning()) {
-            return this.app.stop();
+        if (app && app.isRunning()) {
+            return app.stop();
         }
     });
 
     it('shows an initial window', function() {
-        return this.app.client
+        return app.client
             .getWindowCount()
             .then(count => {
                 assert.equal(count, 1);
@@ -65,8 +68,8 @@ describe('Application launch', function() {
     });
 
     // it('should store a screenshot', function () {
-    //     return this.app.client
-    //       .then(() => this.app.client.getText('Non exsit text'))
+    //     return app.client
+    //       .then(() => app.client.getText('Non exsit text'))
     //       .catch(saveErrorScreenshot.bind(this))
     // })
 });
