@@ -14,23 +14,22 @@ npm install electron-oauth-github
 3. Set **Client ID**, **Client Secret** and [scopes](https://developer.github.com/v3/oauth/#scopes). See [example](https://github.com/uraway/electron-oauth-github/tree/master/example).
 
 ```javascript
-var dialog = require('electron').dialog;
+const OauthGithub = require('electron-oauth-github');
 
-var OauthGithub = require('electron-oauth-github');
-
-var github = new OauthGithub({
-  id: '****',
-  secret: '****',
-  scopes: ['user:email', 'notifications'],
+const github = new OauthGithub({
+    id: process.env.GH_CLIENT_ID,
+    secret: process.env.GH_CLIENT_SECRET,
+    scopes: ['user:email', 'notifications'],
 });
 
-github.startRequest(function(access_token, err) {
-  if (err) {
-    console.error(err);
-  }
+github.startRequest(function(accessToken, err) {
+    if (err) {
+        console.error(err);
+    }
 
-  console.log(access_token);
+    console.log(accessToken);
 });
+
 ```
 
 Now you have got access token. Dive into OAuth!
