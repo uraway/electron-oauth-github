@@ -37,6 +37,12 @@ commands:
 
 version: 2.1
 jobs:
+  lint:
+    executor: linux
+    steps:
+      - checkout
+      - install-deps
+      - run: npm run eslint
   test-linux:
     executor: linux
     steps:
@@ -58,14 +64,16 @@ jobs:
 
 workflows:
   version: 2
-  test:
+  lint_test_publish:
     jobs:
+      - lint
       - test-linux:
           context: OSS
       - test-windows:
           context: OSS
       - npm-publisher/publish-from-package-version:
           requires:
+            - lint
             - test-linux
             - test-windows
           filters:
